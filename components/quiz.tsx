@@ -1,18 +1,29 @@
 "use client";
 
 import { questionBank } from "./questionBank";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
+import QuizQuestion from "./quiz-question";
+import Status from "./status";
 
 export default function Quiz() {
-  const [currAbbr, setCurrAbbr] = useState("");
+  const [question, setQuestion] = useState("");
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
   const [skips, setSkips] = useState(0);
   const [input, setInput] = useState("");
 
-  function generateQuestion() {
+  function skipQuestionHandler() {
+    setSkips(skips + 1);
+  }
+
+  function inputChangeHandler(s: string) {
+    setInput(s);
+  }
+
+  // generates question with a change in score or skip count
+  useEffect(() => {
     if (input != "") {
       setInput("");
     }
@@ -20,43 +31,31 @@ export default function Quiz() {
       questionBank.questions[
         Math.floor(Math.random() * questionBank.questions.length)
       ];
-    setCurrAbbr(tmp.abbr);
+    setQuestion(tmp.abbr);
     setAns(tmp.station);
-  }
+  }, [score, skips]);
 
-  function skipQuestion() {
-    setSkips(skips + 1);
-    generateQuestion();
-  }
+  // checks if the new input answer is correct or not
+  useEffect(() => {
+    const a = input.toUpperCase();
+    const b = answer.toUpperCase();
 
-  function inputChangeHandler(s: string) {
-    console.log(s);
-    setInput(s);
-    if (s.toUpperCase() == answer.toUpperCase()) {
-      console.log("Correct answer found!");
-      correctAnswer();
+    if (a != "" && a === b) {
+      setScore(score + 100);
     }
-  }
+  }, [input]);
 
-  function correctAnswer() {
-    setScore(score + 100);
-    alert("Correct! to the next question!");
-    generateQuestion();
-  }
-
-  if (currAbbr == "") {
-    generateQuestion();
-  }
+  //
 
   return (
     <div className="space-y-2">
       <div>
-        Current Score: {score}
-        <br />
-        Number Skips: {skips}
+        <Status score={score} skips={skips} />
       </div>
 
-      <div>What is the station represented by the abbreviation {currAbbr}?</div>
+      <div>
+        <QuizQuestion question={question} />
+      </div>
 
       <div>
         <Input
@@ -66,7 +65,9 @@ export default function Quiz() {
         ></Input>
       </div>
 
-      <Button onPress={(e) => skipQuestion()}>Skip Question</Button>
+      <div>
+        <Button onPress={(e) => skipQuestionHandler()}>Skip Question</Button>
+      </div>
     </div>
   );
 }
