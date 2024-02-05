@@ -4,6 +4,8 @@ export default function Status(props: any) {
       Current Score: {props.score}
       <br />
       Number Skips: {props.skips}
+      <br />
+      {props.timer}
     </div>
   );
 }

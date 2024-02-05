@@ -6,6 +6,7 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import QuizQuestion from "./quiz-question";
 import Status from "./status";
+import Timer from "./timer";
 
 export default function Quiz() {
   const [question, setQuestion] = useState("");
@@ -13,9 +14,11 @@ export default function Quiz() {
   const [score, setScore] = useState(0);
   const [skips, setSkips] = useState(0);
   const [input, setInput] = useState("");
+  const [timeLeft, setTimeLeft] = useState(90);
 
   function skipQuestionHandler() {
     setSkips(skips + 1);
+    setTimeLeft(timeLeft - 10);
   }
 
   function inputChangeHandler(s: string) {
@@ -50,7 +53,12 @@ export default function Quiz() {
   return (
     <div className="space-y-2">
       <div>
-        <Status score={score} skips={skips} />
+        <Status
+          score={score}
+          skips={skips}
+          timeLeft={timeLeft}
+          timer={<Timer time={timeLeft} callback={setTimeLeft} />}
+        />
       </div>
 
       <div>
@@ -60,13 +68,19 @@ export default function Quiz() {
       <div>
         <Input
           value={input}
+          isDisabled={timeLeft <= 0}
           placeholder="Input answer"
           onChange={(e) => inputChangeHandler(e.target.value)}
         ></Input>
       </div>
 
       <div>
-        <Button onPress={(e) => skipQuestionHandler()}>Skip Question</Button>
+        <Button
+          isDisabled={timeLeft <= 0}
+          onPress={(e) => skipQuestionHandler()}
+        >
+          Skip Question
+        </Button>
       </div>
     </div>
   );
