@@ -1,6 +1,10 @@
-# Next.js & NextUI Template
+# MRT Abbreviation Game
 
-This is a template for creating applications using Next.js 13 (app directory) and NextUI (v2).
+This is a game web application that tests your knowledge of Singapore's MRT Stations and their abbreviations, intended as a learning tool.
+
+This application is built on Next.js 13 (app directory) and NextUI (v2).
+
+You can also access to online demo [here](https://mrt-abbreviation-game.netlify.app/).
 
 ## Technologies Used
 
@@ -11,6 +15,7 @@ This is a template for creating applications using Next.js 13 (app directory) an
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
+- [react-toastify](https://www.npmjs.com/package/react-toastify)
 
 ## How to Use
 
