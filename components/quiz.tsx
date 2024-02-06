@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
+import { toast } from "react-toastify";
+
 import QuizQuestion from "./quiz-question";
 import Status from "./status";
 import GameOverModal from "./game-over-modal";
@@ -22,6 +24,7 @@ export default function Quiz() {
   function skipQuestionHandler() {
     setSkips(skips + 1);
     setTimeLeft(timeLeft - 10);
+    toast(`${question} represents ${answer} station.`);
   }
 
   function inputChangeHandler(s: string) {
