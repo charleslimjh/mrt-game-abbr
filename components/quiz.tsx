@@ -63,6 +63,7 @@ export default function Quiz() {
   // trigger check to open modal
   useEffect(() => {
     if (timeLeft <= 0) {
+      toast(`${question} represents ${answer} station.`);
       onOpen();
     }
   }, [timeLeft]);
