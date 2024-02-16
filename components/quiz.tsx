@@ -1,6 +1,5 @@
 "use client";
 
-import { questionBank } from "./questionBank";
 import React, { useState, useEffect } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
@@ -12,7 +11,7 @@ import Status from "./status";
 import GameOverModal from "./game-over-modal";
 import Timer from "./timer";
 
-export default function Quiz() {
+export default function Quiz(props: any) {
   const [question, setQuestion] = useState("");
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
@@ -43,8 +42,8 @@ export default function Quiz() {
       setInput("");
     }
     const tmp =
-      questionBank.questions[
-        Math.floor(Math.random() * questionBank.questions.length)
+      props.questionBank.questions[
+        Math.floor(Math.random() * props.questionBank.questions.length)
       ];
     setQuestion(tmp.abbr);
     setAns(tmp.station);

@@ -1,0 +1,23 @@
+export const questionBank = {
+  questions: [
+    { station: "Woodlands North", abbr: "WDN" },
+    { station: "Woodlands", abbr: "WDL" },
+    { station: "Woodlands South", abbr: "WDS" },
+    { station: "Springleaf", abbr: "SPL" },
+    { station: "Lentor", abbr: "LTR" },
+    { station: "Mayflower", abbr: "MFL" },
+    { station: "Bright Hill", abbr: "BRH" },
+    { station: "Upper Thomson", abbr: "UTS" },
+    { station: "Caldecott", abbr: "CDT" },
+    { station: "Stevens", abbr: "STV" },
+    { station: "Napier", abbr: "NPR" },
+    { station: "Orchard Boulevard", abbr: "OBV" },
+    { station: "Great World", abbr: "GRW" },
+    { station: "Havelock", abbr: "HVL" },
+    { station: "Outram Park", abbr: "OTP" },
+    { station: "Maxwell", abbr: "MAX" },
+    { station: "Shenton Way", abbr: "SHW" },
+    { station: "Marina Bay", abbr: "MRB" },
+    { station: "Gardens by the Bay", abbr: "GRB" },
+  ],
+};
