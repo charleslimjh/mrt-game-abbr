@@ -7,22 +7,19 @@ import { useDisclosure } from "@nextui-org/modal";
 import { toast } from "react-toastify";
 
 import QuizQuestion from "./quiz-question";
-import Status from "./status";
+import StatusLives from "./status copy";
 import GameOverModal from "./game-over-modal";
-import Timer from "./timer";
 
-export default function Quiz(props: any) {
+export default function QuizLives(props: any) {
   const [question, setQuestion] = useState("");
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
-  const [skips, setSkips] = useState(0);
   const [input, setInput] = useState("");
-  const [timeLeft, setTimeLeft] = useState(90);
+  const [livesLeft, setLivesLeft] = useState(3);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   function skipQuestionHandler() {
-    setSkips(skips + 1);
-    setTimeLeft(timeLeft - 10);
+    setLivesLeft(livesLeft - 1);
     toast(`${question} represents ${answer} station.`);
   }
 
@@ -32,8 +29,7 @@ export default function Quiz(props: any) {
 
   function replayHandler() {
     setScore(0);
-    setSkips(0);
-    setTimeLeft(90);
+    setLivesLeft(3);
   }
 
   // generates question with a change in score or skip count
@@ -47,7 +43,7 @@ export default function Quiz(props: any) {
       ];
     setQuestion(tmp.abbr);
     setAns(tmp.station);
-  }, [score, skips]);
+  }, [score, livesLeft]);
 
   // checks if the new input answer is correct or not
   useEffect(() => {
@@ -61,29 +57,24 @@ export default function Quiz(props: any) {
 
   // trigger check to open modal
   useEffect(() => {
-    if (timeLeft <= 0) {
+    if (livesLeft <= 0) {
       toast(`${question} represents ${answer} station.`);
       onOpen();
     }
-  }, [timeLeft]);
+  }, [livesLeft]);
 
   return (
     <div className="space-y-2">
       <GameOverModal
         score={score}
-        skips={skips}
+        isLives={true}
         callback={replayHandler}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       />
 
       <div>
-        <Status
-          score={score}
-          skips={skips}
-          timeLeft={timeLeft}
-          timer={<Timer time={timeLeft} callback={setTimeLeft} />}
-        />
+        <StatusLives score={score} livesLeft={livesLeft} />
       </div>
 
       <div>
@@ -93,7 +84,7 @@ export default function Quiz(props: any) {
       <div>
         <Input
           value={input}
-          isDisabled={timeLeft <= 0}
+          isDisabled={livesLeft <= 0}
           placeholder="Input answer"
           onChange={(e) => inputChangeHandler(e.target.value)}
         ></Input>
@@ -101,7 +92,7 @@ export default function Quiz(props: any) {
 
       <div>
         <Button
-          isDisabled={timeLeft <= 0}
+          isDisabled={livesLeft <= 0}
           onPress={(e) => skipQuestionHandler()}
         >
           Skip Question

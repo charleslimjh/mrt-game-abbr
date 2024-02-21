@@ -23,8 +23,12 @@ export default function GameOverModal(props: any) {
               Game Over!
             </ModalHeader>
             <ModalBody>
-              <p>Score: {props.score}</p>
-              <p>Number of skips: {props.skips}</p>
+              {props.isLives ? (
+                <p>Placeholder score: {props.score}</p>
+              ) : (
+                <p>Score: {props.score}</p>
+              )}
+              {!props.isLives && <p>Number of skips: {props.skips}</p>}
             </ModalBody>
             <ModalFooter>
               <Button
