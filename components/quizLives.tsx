@@ -10,24 +10,26 @@ import QuizQuestion from "./quiz-question";
 import StatusLives from "./statusLives";
 import GameOverModal from "./game-over-modal";
 
-export default function QuizLives(props: any) {
+export default function QuizLives(props: {
+  questionBank: { questions: Array<{ station: string; abbr: string }> };
+}) {
   const [question, setQuestion] = useState("");
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
   const [input, setInput] = useState("");
-  const [livesLeft, setLivesLeft] = useState(5);
+  const [livesLeft, setLivesLeft] = useState(3);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [qb, setQb] = useState(props.questionBank.questions);
   const totalScore = props.questionBank.questions.length;
 
   function skipQuestionHandler() {
-    setLivesLeft(livesLeft - 1);
     toast(`${question} represents ${answer} station.`);
-    const tmp =
-      props.questionBank.questions[
-        Math.floor(Math.random() * props.questionBank.questions.length)
-      ];
-    setQuestion(tmp.abbr);
-    setAns(tmp.station);
+    const tmp = qb.shift();
+    if (tmp) {
+      qb.push(tmp);
+      setQb(qb);
+    }
+    generateQuestion();
   }
 
   function inputChangeHandler(s: string) {
@@ -39,17 +41,22 @@ export default function QuizLives(props: any) {
     setLivesLeft(3);
   }
 
+  // helps generate a new question
+  function generateQuestion() {
+    var tmp = qb[0];
+    setQuestion(tmp.abbr);
+    setAns(tmp.station);
+  }
+
   // generates question with a change in score
   useEffect(() => {
     if (input != "") {
       setInput("");
     }
-    const tmp =
-      props.questionBank.questions[
-        Math.floor(Math.random() * props.questionBank.questions.length)
-      ];
-    setQuestion(tmp.abbr);
-    setAns(tmp.station);
+
+    if (score < totalScore) {
+      generateQuestion();
+    }
   }, [score]);
 
   // checks if the new input answer is correct or not
@@ -59,7 +66,8 @@ export default function QuizLives(props: any) {
     const b = answer.toUpperCase();
 
     if (a != "" && a === b) {
-      setScore(score + 100);
+      setQb(qb.filter((x) => x.abbr != question && x.abbr != answer));
+      setScore(score + 1);
     } else {
       setLivesLeft(livesLeft - 1);
       setInput("");
@@ -68,16 +76,17 @@ export default function QuizLives(props: any) {
 
   // trigger check to open modal
   useEffect(() => {
-    if (livesLeft <= 0) {
+    if (livesLeft <= 0 || score == totalScore) {
       toast(`${question} represents ${answer} station.`);
       onOpen();
     }
-  }, [livesLeft]);
+  }, [livesLeft, score]);
 
   return (
     <div className="space-y-2">
       <GameOverModal
         score={score}
+        total={totalScore}
         isLives={true}
         callback={replayHandler}
         isOpen={isOpen}
@@ -85,7 +94,7 @@ export default function QuizLives(props: any) {
       />
 
       <div>
-        <StatusLives score={score} livesLeft={livesLeft} />
+        <StatusLives score={score} total={totalScore} livesLeft={livesLeft} />
       </div>
 
       <div>
@@ -96,18 +105,20 @@ export default function QuizLives(props: any) {
         <form onSubmit={(e) => checkAnswer(e)}>
           <Input
             value={input}
-            isDisabled={livesLeft <= 0}
+            isDisabled={livesLeft <= 0 || score == totalScore}
             placeholder="Input answer"
             onChange={(e) => inputChangeHandler(e.target.value)}
             className="pb-2"
           ></Input>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" color="primary">
+            Submit
+          </Button>
         </form>
       </div>
 
       <div>
         <Button
-          isDisabled={livesLeft <= 0}
+          isDisabled={livesLeft <= 0 || score == totalScore}
           onPress={(e) => skipQuestionHandler()}
         >
           Skip Question

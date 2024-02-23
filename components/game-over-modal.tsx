@@ -24,7 +24,9 @@ export default function GameOverModal(props: any) {
             </ModalHeader>
             <ModalBody>
               {props.isLives ? (
-                <p>Placeholder score: {props.score}</p>
+                <p>
+                  Score: {props.score} / {props.total}
+                </p>
               ) : (
                 <p>Score: {props.score}</p>
               )}

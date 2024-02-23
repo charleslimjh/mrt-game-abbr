@@ -1,7 +1,7 @@
 export default function StatusLives(props: any) {
   return (
     <div>
-      Current Score: {props.score}
+      {props.score < props.total && `Score: ${props.score} / ${props.total}`}
       <br />
       Lives left: {props.livesLeft}
     </div>
