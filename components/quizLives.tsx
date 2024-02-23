@@ -23,7 +23,6 @@ export default function QuizLives(props: {
   const totalScore = props.questionBank.questions.length;
 
   function skipQuestionHandler() {
-    toast(`${question} represents ${answer} station.`);
     const tmp = qb.shift();
     if (tmp) {
       qb.push(tmp);
@@ -77,7 +76,6 @@ export default function QuizLives(props: {
   // trigger check to open modal
   useEffect(() => {
     if (livesLeft <= 0 || score == totalScore) {
-      toast(`${question} represents ${answer} station.`);
       onOpen();
     }
   }, [livesLeft, score]);
@@ -109,10 +107,8 @@ export default function QuizLives(props: {
             placeholder="Input answer"
             onChange={(e) => inputChangeHandler(e.target.value)}
             className="pb-2"
+            autoFocus
           ></Input>
-          <Button type="submit" color="primary">
-            Submit
-          </Button>
         </form>
       </div>
 
