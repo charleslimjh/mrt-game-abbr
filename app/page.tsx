@@ -46,7 +46,7 @@ export default function Page() {
             </Radio>
             <Radio
               value="lives"
-              description="Accuracy challenge, try to identify all stations in a line!"
+              description="Accuracy challenge, you have 5 lives, try to identify all stations in a line!"
               {...register("mode")}
             >
               100% - 3 Lives

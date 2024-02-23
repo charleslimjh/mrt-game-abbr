@@ -21,6 +21,12 @@ export default function QuizLives(props: any) {
   function skipQuestionHandler() {
     setLivesLeft(livesLeft - 1);
     toast(`${question} represents ${answer} station.`);
+    const tmp =
+      props.questionBank.questions[
+        Math.floor(Math.random() * props.questionBank.questions.length)
+      ];
+    setQuestion(tmp.abbr);
+    setAns(tmp.station);
   }
 
   function inputChangeHandler(s: string) {
