@@ -20,7 +20,11 @@ export default function GameOverModal(props: any) {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
-              Game Over!
+              {!props.isLives
+                ? "Game over!"
+                : props.score == props.total
+                ? "You win!"
+                : "Game over!"}
             </ModalHeader>
             <ModalBody>
               {props.isLives ? (
