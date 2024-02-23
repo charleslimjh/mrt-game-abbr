@@ -17,6 +17,7 @@ export default function QuizLives(props: any) {
   const [input, setInput] = useState("");
   const [livesLeft, setLivesLeft] = useState(5);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const totalScore = props.questionBank.questions.length;
 
   function skipQuestionHandler() {
     setLivesLeft(livesLeft - 1);
@@ -54,7 +55,6 @@ export default function QuizLives(props: any) {
   // checks if the new input answer is correct or not
   function checkAnswer(e: FormEvent) {
     e.preventDefault();
-    console.log(`Input: ${input}; Answer: ${answer}`);
     const a = input.toUpperCase();
     const b = answer.toUpperCase();
 
