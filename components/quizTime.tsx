@@ -7,7 +7,7 @@ import { useDisclosure } from "@nextui-org/modal";
 import { toast } from "react-toastify";
 
 import QuizQuestion from "./quiz-question";
-import Status from "./status";
+import StatusTime from "./statusTime";
 import GameOverModal from "./game-over-modal";
 import Timer from "./timer";
 
@@ -79,7 +79,7 @@ export default function QuizTime(props: any) {
       />
 
       <div>
-        <Status
+        <StatusTime
           score={score}
           skips={skips}
           timeLeft={timeLeft}

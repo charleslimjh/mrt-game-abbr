@@ -7,7 +7,7 @@ import { useDisclosure } from "@nextui-org/modal";
 import { toast } from "react-toastify";
 
 import QuizQuestion from "./quiz-question";
-import StatusLives from "./status copy";
+import StatusLives from "./statusLives";
 import GameOverModal from "./game-over-modal";
 
 export default function QuizLives(props: any) {
