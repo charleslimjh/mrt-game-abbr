@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
@@ -15,7 +15,7 @@ export default function QuizLives(props: any) {
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
   const [input, setInput] = useState("");
-  const [livesLeft, setLivesLeft] = useState(3);
+  const [livesLeft, setLivesLeft] = useState(5);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   function skipQuestionHandler() {
@@ -32,7 +32,7 @@ export default function QuizLives(props: any) {
     setLivesLeft(3);
   }
 
-  // generates question with a change in score or skip count
+  // generates question with a change in score
   useEffect(() => {
     if (input != "") {
       setInput("");
@@ -43,17 +43,22 @@ export default function QuizLives(props: any) {
       ];
     setQuestion(tmp.abbr);
     setAns(tmp.station);
-  }, [score, livesLeft]);
+  }, [score]);
 
   // checks if the new input answer is correct or not
-  useEffect(() => {
+  function checkAnswer(e: FormEvent) {
+    e.preventDefault();
+    console.log(`Input: ${input}; Answer: ${answer}`);
     const a = input.toUpperCase();
     const b = answer.toUpperCase();
 
     if (a != "" && a === b) {
       setScore(score + 100);
+    } else {
+      setLivesLeft(livesLeft - 1);
+      setInput("");
     }
-  }, [input]);
+  }
 
   // trigger check to open modal
   useEffect(() => {
@@ -82,12 +87,16 @@ export default function QuizLives(props: any) {
       </div>
 
       <div>
-        <Input
-          value={input}
-          isDisabled={livesLeft <= 0}
-          placeholder="Input answer"
-          onChange={(e) => inputChangeHandler(e.target.value)}
-        ></Input>
+        <form onSubmit={(e) => checkAnswer(e)}>
+          <Input
+            value={input}
+            isDisabled={livesLeft <= 0}
+            placeholder="Input answer"
+            onChange={(e) => inputChangeHandler(e.target.value)}
+            className="pb-2"
+          ></Input>
+          <Button type="submit">Submit</Button>
+        </form>
       </div>
 
       <div>
