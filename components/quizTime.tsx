@@ -1,6 +1,5 @@
 "use client";
 
-import { questionBank } from "./questionBank";
 import React, { useState, useEffect } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
@@ -8,11 +7,11 @@ import { useDisclosure } from "@nextui-org/modal";
 import { toast } from "react-toastify";
 
 import QuizQuestion from "./quiz-question";
-import Status from "./status";
+import StatusTime from "./statusTime";
 import GameOverModal from "./game-over-modal";
 import Timer from "./timer";
 
-export default function Quiz() {
+export default function QuizTime(props: any) {
   const [question, setQuestion] = useState("");
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
@@ -43,8 +42,8 @@ export default function Quiz() {
       setInput("");
     }
     const tmp =
-      questionBank.questions[
-        Math.floor(Math.random() * questionBank.questions.length)
+      props.questionBank.questions[
+        Math.floor(Math.random() * props.questionBank.questions.length)
       ];
     setQuestion(tmp.abbr);
     setAns(tmp.station);
@@ -73,13 +72,14 @@ export default function Quiz() {
       <GameOverModal
         score={score}
         skips={skips}
+        isSkips={true}
         callback={replayHandler}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       />
 
       <div>
-        <Status
+        <StatusTime
           score={score}
           skips={skips}
           timeLeft={timeLeft}

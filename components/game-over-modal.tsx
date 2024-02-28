@@ -6,6 +6,7 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/modal";
+import Link from "next/link";
 
 export default function GameOverModal(props: any) {
   return (
@@ -19,13 +20,34 @@ export default function GameOverModal(props: any) {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
-              Game Over!
+              {!props.isLives
+                ? "Game over!"
+                : props.score == props.total
+                ? "You win!"
+                : "Game over!"}
             </ModalHeader>
             <ModalBody>
-              <p>Score: {props.score}</p>
-              <p>Number of skips: {props.skips}</p>
+              {props.isLives ? (
+                <p>
+                  Score: {props.score} / {props.total}
+                </p>
+              ) : (
+                <p>Score: {props.score}</p>
+              )}
+              {!props.isLives && <p>Number of skips: {props.skips}</p>}
             </ModalBody>
             <ModalFooter>
+              <Button
+                as={Link}
+                color="primary"
+                variant="light"
+                onPress={() => {
+                  onClose();
+                }}
+                href="/"
+              >
+                Main Menu
+              </Button>
               <Button
                 color="primary"
                 variant="light"
