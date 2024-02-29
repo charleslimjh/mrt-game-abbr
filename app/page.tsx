@@ -4,7 +4,6 @@ import { Button } from "@nextui-org/button";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { stringify } from "querystring";
 
 export default function Page() {
   const router = useRouter();
