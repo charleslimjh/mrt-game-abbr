@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@chakra-ui/radio": "^2.1.2",
-    "@iconscout/react-unicons": "^2.0.2",
     "@nextui-org/button": "2.0.26",
     "@nextui-org/card": "^2.0.24",
     "@nextui-org/code": "2.0.24",
