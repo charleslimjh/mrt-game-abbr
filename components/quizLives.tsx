@@ -18,6 +18,7 @@ export default function QuizLives(props: {
   const [score, setScore] = useState(0);
   const [input, setInput] = useState("");
   const [livesLeft, setLivesLeft] = useState(3);
+  const [feedback, setFeedback] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [qb, setQb] = useState(props.questionBank.questions);
   const totalScore = props.questionBank.questions.length;
@@ -67,10 +68,16 @@ export default function QuizLives(props: {
     if (a != "" && a === b) {
       setQb(qb.filter((x) => x.abbr != question && x.abbr != answer));
       setScore(score + 1);
+      setFeedback("correct");
     } else {
       setLivesLeft(livesLeft - 1);
       setInput("");
+      setFeedback("wrong");
     }
+
+    setTimeout(() => {
+      setFeedback("");
+    }, 500);
   }
 
   // trigger check to open modal
@@ -102,12 +109,19 @@ export default function QuizLives(props: {
       <div>
         <form onSubmit={(e) => checkAnswer(e)}>
           <Input
+            classNames={{
+              base: "pb-2",
+              inputWrapper:
+                feedback === "correct"
+                  ? "animate-pulse-bg from-default to-green-400"
+                  : feedback === "wrong"
+                  ? "animate-pulse-bg from-default to-red-400"
+                  : "",
+            }}
             value={input}
             isDisabled={livesLeft <= 0 || score == totalScore}
             placeholder="Input answer"
             onChange={(e) => inputChangeHandler(e.target.value)}
-            className="pb-2"
-            autoFocus
           ></Input>
         </form>
       </div>
