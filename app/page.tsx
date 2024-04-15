@@ -41,14 +41,14 @@ export default function Page() {
               description="Time attack, 90 second to guess as many stations as you can."
               {...register("mode")}
             >
-              Time Attack - 90 second
+              Time Attack - 90 seconds
             </Radio>
             <Radio
               value="lives"
               description="Accuracy challenge, you have 3 lives, try to identify all stations in a line!"
               {...register("mode")}
             >
-              100% - 3 Lives
+              100% - 5 Lives
             </Radio>
           </RadioGroup>
           <br />
