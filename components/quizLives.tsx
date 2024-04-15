@@ -104,7 +104,7 @@ export default function QuizLives(props: {
           score={score}
           total={totalScore}
           livesLeft={livesLeft}
-          maxLives={maxLives}
+          maxLives={maxLives.current}
         />
       </div>
 
