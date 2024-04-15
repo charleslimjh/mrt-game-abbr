@@ -20,7 +20,7 @@ export default function Page() {
 
   return (
     <div>
-      <div className="pb-10">
+      <div className="py-10">
         <h1 className="text-5xl pb-10">MRT Abbreviation Game</h1>
       </div>
       <div className="text-left">
