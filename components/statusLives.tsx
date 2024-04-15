@@ -15,7 +15,7 @@ export default function StatusLives(props: any) {
             .map((_, x) => (
               <PiHeart key={x} color="red" />
             ))}
-          {Array(3 - props.livesLeft)
+          {Array(props.maxLives - props.livesLeft)
             .fill(0)
             .map((_, x) => (
               <PiHeartBreak key={x} color="red" />

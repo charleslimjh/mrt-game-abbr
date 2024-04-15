@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect, FormEvent, useRef } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
@@ -17,7 +17,8 @@ export default function QuizLives(props: {
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
   const [input, setInput] = useState("");
-  const [livesLeft, setLivesLeft] = useState(3);
+  let maxLives = useRef(5);
+  const [livesLeft, setLivesLeft] = useState(maxLives.current);
   const [feedback, setFeedback] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [qb, setQb] = useState(props.questionBank.questions);
@@ -38,7 +39,7 @@ export default function QuizLives(props: {
 
   function replayHandler() {
     setScore(0);
-    setLivesLeft(3);
+    setLivesLeft(maxLives.current);
   }
 
   // helps generate a new question
@@ -99,7 +100,12 @@ export default function QuizLives(props: {
       />
 
       <div>
-        <StatusLives score={score} total={totalScore} livesLeft={livesLeft} />
+        <StatusLives
+          score={score}
+          total={totalScore}
+          livesLeft={livesLeft}
+          maxLives={maxLives}
+        />
       </div>
 
       <div>
