@@ -15,6 +15,7 @@ export default function GameOverModal(props: any) {
       onOpenChange={props.onOpenChange}
       isDismissable={false}
       hideCloseButton={true}
+      placement="center"
     >
       <ModalContent>
         {(onClose) => (
