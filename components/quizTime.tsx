@@ -16,13 +16,18 @@ export default function QuizTime(props: any) {
   const [answer, setAns] = useState("");
   const [score, setScore] = useState(0);
   const [skips, setSkips] = useState(0);
+  const [feedback, setFeedback] = useState("");
   const [input, setInput] = useState("");
   const [timeLeft, setTimeLeft] = useState(90);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   function skipQuestionHandler() {
     setSkips(skips + 1);
-    setTimeLeft(timeLeft - 10);
+    setTimeLeft(timeLeft - 5);
+    setFeedback("wrong");
+    setTimeout(() => {
+      setFeedback("");
+    }, 500);
     toast(`${question} represents ${answer} station.`);
   }
 
@@ -56,6 +61,10 @@ export default function QuizTime(props: any) {
 
     if (a != "" && a === b) {
       setScore(score + 100);
+      setFeedback("correct");
+      setTimeout(() => {
+        setFeedback("");
+      }, 500);
     }
   }, [input]);
 
@@ -93,6 +102,15 @@ export default function QuizTime(props: any) {
 
       <div>
         <Input
+          classNames={{
+            base: "pb-2",
+            inputWrapper:
+              feedback === "correct"
+                ? "animate-pulse-bg from-default to-green-400"
+                : feedback === "wrong"
+                ? "animate-pulse-bg from-default to-red-400"
+                : "",
+          }}
           value={input}
           isDisabled={timeLeft <= 0}
           placeholder="Input answer"
