@@ -40,10 +40,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   to tick.
                 </p>
                 <p>
-                  If you cannot identify the currently displayed MRT station,
+                  {`If you cannot identify the currently displayed MRT station,
                   you may choose to skip the current station with a 5 second
                   penalty. By pressing the 'Skip Question' button, a new MRT
-                  abbreviation will be generated.
+                  abbreviation will be generated.`}
                 </p>
                 <p>How many MRT stations can you identify?</p>
               </ModalBody>

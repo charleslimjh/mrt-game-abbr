@@ -38,9 +38,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   lose one of your 5 lives.
                 </p>
                 <p>
-                  You may choose to skip the current station at no penalty. By
-                  pressing the 'Skip' button, a new MRT abbreviation will be
-                  generated.
+                  {`You may choose to skip the current station at no penalty. By
+                  pressing the 'Skip Question' button, a new MRT abbreviation will be
+                  generated.`}
                 </p>
                 <p>Can you identify all MRT stations by their abbreviations?</p>
               </ModalBody>
