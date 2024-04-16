@@ -60,7 +60,7 @@ export default function QuizTime(props: any) {
     const b = answer.toUpperCase();
 
     if (a != "" && a === b) {
-      setScore(score + 100);
+      setScore((prevScore) => prevScore + 100);
       setFeedback("correct");
       setTimeout(() => {
         setFeedback("");
