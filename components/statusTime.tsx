@@ -1,4 +1,4 @@
-export default function Status(props: any) {
+export default function StatusTime(props: any) {
   return (
     <div>
       Current Score: {props.score}
